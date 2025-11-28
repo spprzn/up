@@ -1,0 +1,177 @@
+﻿using System;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
+using System.Windows.Forms;
+
+namespace BudgetApp
+{
+    public class DatabaseHelper
+    {
+        private string connectionString;
+        private string dbPath;
+
+        public DatabaseHelper()
+        {
+            // Используем простой путь в папке приложения
+            dbPath = Path.Combine(Directory.GetCurrentDirectory(), "Budget.db");
+            connectionString = $"Data Source={dbPath};Version=3;";
+
+            CreateDatabase();
+        }
+
+        private void CreateDatabase()
+        {
+            if (!File.Exists(dbPath))
+            {
+                try
+                {
+                    SQLiteConnection.CreateFile(dbPath);
+
+                    using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                    {
+                        conn.Open();
+
+                        string createTable = @"
+                            CREATE TABLE Transactions (
+                                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                Date TEXT NOT NULL,
+                                Amount REAL NOT NULL,
+                                Category TEXT NOT NULL,
+                                Description TEXT,
+                                Type TEXT NOT NULL
+                            )";
+
+                        using (SQLiteCommand cmd = new SQLiteCommand(createTable, conn))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Добавляем тестовые данные
+                        string insertTestData = @"
+                            INSERT INTO Transactions (Date, Amount, Category, Description, Type) 
+                            VALUES 
+                            ('2024-01-01', 50000, 'Зарплата', 'Зарплата за январь', 'Доход'),
+                            ('2024-01-02', 1500, 'Продукты', 'Покупка продуктов', 'Расход'),
+                            ('2024-01-03', 500, 'Транспорт', 'Проездной', 'Расход')";
+
+                        using (SQLiteCommand cmd = new SQLiteCommand(insertTestData, conn))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    MessageBox.Show("База данных создана успешно!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка создания БД: {ex.Message}");
+                }
+            }
+        }
+
+        public DataTable GetTransactions()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT * FROM Transactions ORDER BY Date DESC";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки: {ex.Message}");
+            }
+            return dt;
+        }
+
+        public bool AddTransaction(DateTime date, decimal amount, string category, string description, string type)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO Transactions (Date, Amount, Category, Description, Type) 
+                                   VALUES (@Date, @Amount, @Category, @Description, @Type)";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Date", date.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@Amount", amount);
+                        cmd.Parameters.AddWithValue("@Category", category);
+                        cmd.Parameters.AddWithValue("@Description", description);
+                        cmd.Parameters.AddWithValue("@Type", type);
+
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+                return false;
+            }
+        }
+
+        public bool DeleteTransaction(int id)
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "DELETE FROM Transactions WHERE ID = @ID";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", id);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+                return false;
+            }
+        }
+
+        public decimal GetBalance()
+        {
+            decimal balance = 0;
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT SUM(CASE WHEN Type='Доход' THEN Amount ELSE -Amount END) FROM Transactions";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        var result = cmd.ExecuteScalar();
+                        if (result != DBNull.Value && result != null)
+                        {
+                            balance = Convert.ToDecimal(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Игнорируем ошибки при пустой базе
+            }
+            return balance;
+        }
+    }
+}

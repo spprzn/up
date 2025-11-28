@@ -1,0 +1,9 @@
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\bin\x64\Debug\upupup.exe.config
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\bin\x64\Debug\upupup.exe
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\bin\x64\Debug\upupup.pdb
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\obj\x64\Debug\upupup.csproj.AssemblyReference.cache
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\obj\x64\Debug\upupup.Properties.Resources.resources
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\obj\x64\Debug\upupup.csproj.GenerateResource.cache
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\obj\x64\Debug\upupup.csproj.CoreCompileInputs.cache
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\obj\x64\Debug\upupup.exe
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\upupup\upupup\obj\x64\Debug\upupup.pdb
