@@ -1,0 +1,9 @@
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\obj\Debug\uo3.csproj.AssemblyReference.cache
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\obj\Debug\uo3.Properties.Resources.resources
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\obj\Debug\uo3.csproj.GenerateResource.cache
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\obj\Debug\uo3.csproj.CoreCompileInputs.cache
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\bin\Debug\uo3.exe.config
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\bin\Debug\uo3.exe
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\bin\Debug\uo3.pdb
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\obj\Debug\uo3.exe
+\\192.168.3.250\Veda\3 курс\ИСП 34\Разработка кода ИС\Ермолаев\уп\uo3\uo3\obj\Debug\uo3.pdb
